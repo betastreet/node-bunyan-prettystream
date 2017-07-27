@@ -1,12 +1,13 @@
-  [![Build Status](https://secure.travis-ci.org/mrrama/node-bunyan-prettystream.png?branch=master)](http://travis-ci.org/mrrama/node-bunyan-prettystream)
-  [![Coverage Status](https://coveralls.io/repos/mrrama/node-bunyan-prettystream/badge.png?branch=master)](https://coveralls.io/r/mrrama/node-bunyan-prettystream?branch=master)
-
-bunyan-prettystream is a stream based implementation of the [Bunyan][bunyan] CLI tool's pretty printing capabilities. It allows
+bunyan-prettystream-circularsafe is a stream based implementation of the [Bunyan][bunyan] CLI tool's pretty printing capabilities. It allows
 apps using bunyan to log directly to the console or file in human readable format instead of as JSON without having to
 run or pipe into the bunyan tool. This is useful for working with IDEs which do not have the ability to pipe console
 output to another application (such as WebStorm).
 
 This library is only really meant for development and should not be used on production environments.
+
+This package is based on a fork of bunyan-prettystream which was originally created by Amar Suhail (https://github.com/mrrama/node-bunyan-prettystream).
+This fork was originally created by Nathan Hadfield (https://github.com/hadfieldn/node-bunyan-prettystream), and contains code that makes logging objects with circular references safe,
+along with other community-provided fixes and updated dependencies.
 
 # Usage
 
