@@ -50,6 +50,17 @@ var extraFieldRecord = {
   msg:"My message",
   time:"2012-02-08T22:56:52.856Z",
   v:0};
+var extraFieldDetailsRecord = {
+  name: "myservice",
+  pid: 123,
+  hostname:"example.com",
+  level:30,
+  extra:"field",
+  msg:"My message",
+  time:"2012-02-08T22:56:52.856Z",
+  v:0,
+  wat: { perhaps: 'some data will exist!' }
+};
 var undefinedFields = {
   name: "myservice",
   pid: 123,
@@ -223,6 +234,20 @@ describe('A PrettyStream', function(){
     prettyStream.pipe(new TestStream(test, done));
     prettyStream.write(simpleRecordWithCircularRef);
     prettyStream.end();
+  });
+
+  it('should handle custom formatting via a "mode" function', function () {
+
+    var customFormatter = function(time, level, name, host, src, msg, extras, details) {
+      return "TIME: " + time + " LEVEL: " + level + " NAME: " + name + " HOST: " + host + " SRC: " + src +
+      " MSG: " + msg + " EXTRAS: " + extras + " DETAILS: " + details;
+    };
+
+    var prettyStream = new PrettyStream({ useColor: false, mode: customFormatter });
+    var result       = prettyStream.formatRecord(extraFieldDetailsRecord);
+    result.should.equal('TIME: 2012-02-08T22:56:52.856Z LEVEL:  INFO NAME: myservice/123 HOST: example.com SRC:  MSG: My message EXTRAS:  (extra=field) DETAILS:     wat: {\n' +
+    '      "perhaps": "some data will exist!"\n' +
+    '    }\n');
   });
 });
 
